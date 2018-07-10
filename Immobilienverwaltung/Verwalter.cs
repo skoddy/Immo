@@ -27,7 +27,7 @@ namespace Immobilienverwaltung
             return listVerwalter;
         }
 
-        public void Populate(DbDataReader dataReader)
+        public void PopulateData(DbDataReader dataReader)
         {
             Id = dataReader.GetInt32(0);
             Vorname = dataReader.GetString(1);

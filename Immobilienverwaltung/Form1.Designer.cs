@@ -52,10 +52,11 @@
             this.tabControl1.Controls.Add(this.tabHaus);
             this.tabControl1.Controls.Add(this.tabWohung);
             this.tabControl1.Controls.Add(this.tabMieter);
-            this.tabControl1.Location = new System.Drawing.Point(0, 79);
+            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl1.Location = new System.Drawing.Point(0, 24);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(800, 371);
+            this.tabControl1.Size = new System.Drawing.Size(800, 426);
             this.tabControl1.TabIndex = 0;
             // 
             // tabVerwalter
@@ -74,7 +75,7 @@
             this.tabLiegenschaft.Location = new System.Drawing.Point(4, 22);
             this.tabLiegenschaft.Name = "tabLiegenschaft";
             this.tabLiegenschaft.Padding = new System.Windows.Forms.Padding(3);
-            this.tabLiegenschaft.Size = new System.Drawing.Size(792, 345);
+            this.tabLiegenschaft.Size = new System.Drawing.Size(792, 400);
             this.tabLiegenschaft.TabIndex = 1;
             this.tabLiegenschaft.Text = "Liegenschaft";
             this.tabLiegenschaft.UseVisualStyleBackColor = true;

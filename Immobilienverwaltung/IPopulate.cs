@@ -4,6 +4,6 @@ namespace Immobilienverwaltung
 {
     public interface IPopulate
     {
-        void Populate(DbDataReader dataReader);
+        void PopulateData(DbDataReader dataReader);
     }
 }

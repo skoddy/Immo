@@ -54,7 +54,7 @@ namespace Immobilienverwaltung
             while (reader.Read())
             {
                 type = new T();
-                type.Populate(reader);
+                type.PopulateData(reader);
                 list.Add(type);
             }
             reader.Close();

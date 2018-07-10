@@ -46,7 +46,23 @@ namespace Immobilienverwaltung
 
         private void tabLiegenschaft_Enter(object sender, EventArgs e)
         {
+            ListView lvLiegenschaft = createListView();
 
+            lvLiegenschaft.Columns.Add("Id", -2, HorizontalAlignment.Left);
+            lvLiegenschaft.Columns.Add("Name", -2, HorizontalAlignment.Left);
+
+            Liegenschaften ls = new Liegenschaften();
+
+            List<Liegenschaften> listLiegenschaften = ls.getList(db);
+
+            foreach (Liegenschaften liegenschaft in listLiegenschaften)
+            {
+                ListViewItem item = new ListViewItem(liegenschaft.Id.ToString());
+                item.SubItems.Add(liegenschaft.Name);
+                lvLiegenschaft.Items.Add(item);
+            }
+
+            tabLiegenschaft.Controls.Add(lvLiegenschaft);
         }
 
         private void tabHaus_Enter(object sender, EventArgs e)
