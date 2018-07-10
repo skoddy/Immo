@@ -16,7 +16,6 @@ namespace Immobilienverwaltung
 
         public Form1()
         {
-            db.Create("verwalter", new Verwalter(0, "hihiuuih", "zguugug"));
             InitializeComponent();
         }
 
@@ -88,7 +87,7 @@ namespace Immobilienverwaltung
             lv.LabelEdit = true;
             lv.AllowColumnReorder = true;
             lv.FullRowSelect = true;
-            lv.GridLines = true;
+            lv.GridLines = false;
             lv.Sorting = SortOrder.Ascending;
 
             return lv;
