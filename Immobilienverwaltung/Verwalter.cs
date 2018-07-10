@@ -20,11 +20,7 @@ namespace Immobilienverwaltung
 
         public List<Verwalter> GetList(IDatabase db)
         {
-            List<Verwalter> listVerwalter = new List<Verwalter>();
-
-            listVerwalter = db.Read<Verwalter>("verwalter");
-
-            return listVerwalter;
+            return db.Read<Verwalter>("verwalter"); 
         }
 
         public void PopulateData(DbDataReader dataReader)

@@ -19,7 +19,6 @@ namespace Immobilienverwaltung
             InitializeComponent();
         }
 
-
         private void tabVerwalter_Enter(object sender, EventArgs e)
         {
             ListView lvVerwalter = createListView();
@@ -82,6 +81,7 @@ namespace Immobilienverwaltung
         private ListView createListView()
         {
             ListView lv = new ListView();
+
             lv.Dock = DockStyle.Fill;
             lv.View = View.Details;
             lv.LabelEdit = true;

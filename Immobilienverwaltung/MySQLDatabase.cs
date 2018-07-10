@@ -48,7 +48,9 @@ namespace Immobilienverwaltung
         public List<T> Read<T>(string table) where T : IPopulate, new()
         {
             T type;
-            var list = new List<T>();
+
+            List<T> list = new List<T>();
+
             DbDataReader reader = sooperDooperMysqlFuncyWunky($"SELECT * FROM {table}");
 
             while (reader.Read())
@@ -57,6 +59,7 @@ namespace Immobilienverwaltung
                 type.PopulateData(reader);
                 list.Add(type);
             }
+
             reader.Close();
 
             return list;
