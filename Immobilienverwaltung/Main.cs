@@ -10,11 +10,11 @@ using System.Windows.Forms;
 
 namespace Immobilienverwaltung
 {
-    public partial class Form1 : Form
+    public partial class Main : Form
     {
         IDatabase db = new MySQLDatabase(new DBConfig());
 
-        public Form1()
+        public Main()
         {
             InitializeComponent();
         }

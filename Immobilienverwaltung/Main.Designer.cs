@@ -1,6 +1,6 @@
 ﻿namespace Immobilienverwaltung
 {
-    partial class Form1
+    partial class Main
     {
         /// <summary>
         /// Erforderliche Designervariable.
@@ -136,34 +136,34 @@
             // verwalterToolStripMenuItem
             // 
             this.verwalterToolStripMenuItem.Name = "verwalterToolStripMenuItem";
-            this.verwalterToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.verwalterToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.verwalterToolStripMenuItem.Text = "Verwalter";
             // 
             // liegenschaftToolStripMenuItem
             // 
             this.liegenschaftToolStripMenuItem.Name = "liegenschaftToolStripMenuItem";
-            this.liegenschaftToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.liegenschaftToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.liegenschaftToolStripMenuItem.Text = "Liegenschaft";
             // 
             // hausToolStripMenuItem
             // 
             this.hausToolStripMenuItem.Name = "hausToolStripMenuItem";
-            this.hausToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.hausToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.hausToolStripMenuItem.Text = "Haus";
             // 
             // wohungToolStripMenuItem
             // 
             this.wohungToolStripMenuItem.Name = "wohungToolStripMenuItem";
-            this.wohungToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.wohungToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.wohungToolStripMenuItem.Text = "Wohung";
             // 
             // mieterToolStripMenuItem
             // 
             this.mieterToolStripMenuItem.Name = "mieterToolStripMenuItem";
-            this.mieterToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.mieterToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.mieterToolStripMenuItem.Text = "Mieter";
             // 
-            // Form1
+            // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -171,7 +171,7 @@
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "Form1";
+            this.Name = "Main";
             this.Text = "Immobilienverwaltung";
             this.tabControl1.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
