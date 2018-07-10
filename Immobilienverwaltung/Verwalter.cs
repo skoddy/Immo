@@ -3,7 +3,7 @@ using System.Data.Common;
 
 namespace Immobilienverwaltung
 {
-    public class Verwalter : IPopulate
+    public class Verwalter : IPopulateData
     {
         public int Id { get; set; }
         public string Vorname { get; set; }

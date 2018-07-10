@@ -45,7 +45,7 @@ namespace Immobilienverwaltung
             throw new NotImplementedException();
         }
 
-        public List<T> Read<T>(string table) where T : IPopulate, new()
+        public List<T> Read<T>(string table) where T : IPopulateData, new()
         {
             T type;
 

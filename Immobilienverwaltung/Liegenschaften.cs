@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Immobilienverwaltung
 {
-    public class Liegenschaften : IPopulate
+    public class Liegenschaften : IPopulateData
     {
         public int Id { get; set; }
         public string Name { get; set; }
