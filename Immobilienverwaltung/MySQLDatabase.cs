@@ -50,6 +50,7 @@ namespace Immobilienverwaltung
             T type;
             var list = new List<T>();
             DbDataReader reader = sooperDooperMysqlFuncyWunky($"SELECT * FROM {table}");
+
             while (reader.Read())
             {
                 type = new T();
@@ -57,6 +58,7 @@ namespace Immobilienverwaltung
                 list.Add(type);
             }
             reader.Close();
+
             return list;
         }
 

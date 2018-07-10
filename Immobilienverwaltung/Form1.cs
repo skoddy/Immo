@@ -16,18 +16,10 @@ namespace Immobilienverwaltung
 
         public Form1()
         {
+            db.Create("verwalter", new Verwalter(0, "hihiuuih", "zguugug"));
             InitializeComponent();
-
         }
 
-        public List<Verwalter> getList(IDatabase db)
-        {
-            List<Verwalter> listVerwalter = new List<Verwalter>();
-
-            listVerwalter = db.Read<Verwalter>("verwalter");
-
-            return listVerwalter;
-        }
 
         private void tabVerwalter_Enter(object sender, EventArgs e)
         {
@@ -39,7 +31,7 @@ namespace Immobilienverwaltung
 
             Verwalter vw = new Verwalter();
 
-            List<Verwalter> listVerwalter = getList(db);
+            List<Verwalter> listVerwalter = vw.getList(db);
 
             foreach (Verwalter verwalter in listVerwalter)
             {
