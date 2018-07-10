@@ -20,7 +20,7 @@ namespace Immobilienverwaltung
             Name = name;
         }
 
-        public List<Liegenschaften> getList(IDatabase db)
+        public List<Liegenschaften> GetList(IDatabase db)
         {
             List<Liegenschaften> listLiegenschaften = new List<Liegenschaften>();
 

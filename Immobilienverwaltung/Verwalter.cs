@@ -18,7 +18,7 @@ namespace Immobilienverwaltung
             Nachname = nachname;
         }
 
-        public List<Verwalter> getList(IDatabase db)
+        public List<Verwalter> GetList(IDatabase db)
         {
             List<Verwalter> listVerwalter = new List<Verwalter>();
 

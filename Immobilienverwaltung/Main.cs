@@ -30,7 +30,7 @@ namespace Immobilienverwaltung
 
             Verwalter vw = new Verwalter();
 
-            List<Verwalter> listVerwalter = vw.getList(db);
+            List<Verwalter> listVerwalter = vw.GetList(db);
 
             foreach (Verwalter verwalter in listVerwalter)
             {
@@ -52,7 +52,7 @@ namespace Immobilienverwaltung
 
             Liegenschaften ls = new Liegenschaften();
 
-            List<Liegenschaften> listLiegenschaften = ls.getList(db);
+            List<Liegenschaften> listLiegenschaften = ls.GetList(db);
 
             foreach (Liegenschaften liegenschaft in listLiegenschaften)
             {
