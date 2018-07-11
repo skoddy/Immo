@@ -13,41 +13,44 @@ namespace Immobilienverwaltung
 {
     public partial class Main : Form
     {
-        private DataGridView masterDataGridView = new DataGridView();
-        private BindingSource masterBindingSource = new BindingSource();
-        private DataGridView detailsDataGridView = new DataGridView();
-        private BindingSource detailsBindingSource = new BindingSource();
+        private DataGridView dgvLiegenschaft = new DataGridView();
+        private DataGridView dgvHaus = new DataGridView();
+
+        private BindingSource bsLiegenschaft = new BindingSource();
+        private BindingSource bsHaus = new BindingSource();
 
         public Main()
         {
-            masterDataGridView.Dock = DockStyle.Fill;
-            detailsDataGridView.Dock = DockStyle.Fill;
+            dgvLiegenschaft.Dock = DockStyle.Fill;
+            dgvHaus.Dock = DockStyle.Fill;
 
-            SplitContainer splitContainer1 = new SplitContainer();
-            splitContainer1.Dock = DockStyle.Fill;
-            splitContainer1.Orientation = Orientation.Vertical;
-            splitContainer1.Panel1.Controls.Add(masterDataGridView);
-            splitContainer1.Panel2.Controls.Add(detailsDataGridView);
+            SplitContainer splitContainer = new SplitContainer
+            {
+                Dock = DockStyle.Fill,
+                Orientation = Orientation.Vertical
+            };
+            splitContainer.Panel1.Controls.Add(dgvLiegenschaft);
+            splitContainer.Panel2.Controls.Add(dgvHaus);
 
-            this.Controls.Add(splitContainer1);
-            this.Load += new System.EventHandler(Form1_Load);
-            this.Text = "DataGridView master/detail demo";
+            Controls.Add(splitContainer);
+            Load += new System.EventHandler(Form1_Load);
+            Text = "DataGridView master/detail demo";
             InitializeComponent();
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
 
-            masterDataGridView.DataSource = masterBindingSource;
-            detailsDataGridView.DataSource = detailsBindingSource;
+            dgvLiegenschaft.DataSource = bsLiegenschaft;
+            dgvHaus.DataSource = bsHaus;
             GetData();
 
-            masterDataGridView.AutoResizeColumns();
-            masterDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            detailsDataGridView.AutoSizeColumnsMode =
+            dgvLiegenschaft.AutoResizeColumns();
+            dgvLiegenschaft.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvHaus.AutoSizeColumnsMode =
                 DataGridViewAutoSizeColumnsMode.AllCells;
-            detailsDataGridView.Columns["Liegenschaft_id"].Visible = false;
-            detailsDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvHaus.Columns["Liegenschaft_id"].Visible = false;
+            dgvHaus.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         }
 
         private void GetData()
@@ -58,30 +61,33 @@ namespace Immobilienverwaltung
                 DBConfig conf = new DBConfig();
                 MySqlConnection connection = new MySqlConnection(conf.ConnectionString);
 
-                DataSet data = new DataSet();
-                data.Locale = System.Globalization.CultureInfo.InvariantCulture;
+                DataSet data = new DataSet
+                {
+                    Locale = System.Globalization.CultureInfo.InvariantCulture
+                };
 
-                MySqlDataAdapter masterDataAdapter = new
+                MySqlDataAdapter daLiegenschaft = new
                     MySqlDataAdapter("select ls.Id, ls.Name, vw.Nachname as Verwalter from liegenschaft as ls, verwalter as vw " +
                     "where vw.Id = ls.Verwalter_id;", 
                     connection);
-                masterDataAdapter.Fill(data, "liegenschaft");
+                daLiegenschaft.Fill(data, "liegenschaft");
 
-                MySqlDataAdapter detailsDataAdapter = new
+                MySqlDataAdapter daHaus = new
                     MySqlDataAdapter("select Id, Strasse, Hausnummer, PLZ, Ort, Beschreibung, Liegenschaft_id from haus", connection);
-                detailsDataAdapter.Fill(data, "haus");
+                daHaus.Fill(data, "haus");
 
 
                 DataRelation relation = new DataRelation("LiegenschaftenHaeuser",
                     data.Tables["liegenschaft"].Columns["Id"],
                     data.Tables["haus"].Columns["Liegenschaft_id"]);
+
                 data.Relations.Add(relation);
 
-                masterBindingSource.DataSource = data;
-                masterBindingSource.DataMember = "liegenschaft";
+                bsLiegenschaft.DataSource = data;
+                bsLiegenschaft.DataMember = "liegenschaft";
 
-                detailsBindingSource.DataSource = masterBindingSource;
-                detailsBindingSource.DataMember = "LiegenschaftenHaeuser";
+                bsHaus.DataSource = bsLiegenschaft;
+                bsHaus.DataMember = "LiegenschaftenHaeuser";
             }
             catch (MySqlException)
             {
