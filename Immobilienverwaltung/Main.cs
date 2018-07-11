@@ -33,8 +33,7 @@ namespace Immobilienverwaltung
             splitContainer.Panel2.Controls.Add(dgvHaus);
 
             Controls.Add(splitContainer);
-            Load += new System.EventHandler(Form1_Load);
-            Text = "DataGridView master/detail demo";
+            Load += new EventHandler(Form1_Load);
             InitializeComponent();
         }
 
