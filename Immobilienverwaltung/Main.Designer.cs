@@ -32,7 +32,7 @@
             this.tabVerwalter = new System.Windows.Forms.TabPage();
             this.tabLiegenschaft = new System.Windows.Forms.TabPage();
             this.tabHaus = new System.Windows.Forms.TabPage();
-            this.tabWohung = new System.Windows.Forms.TabPage();
+            this.tabWohnung = new System.Windows.Forms.TabPage();
             this.tabMieter = new System.Windows.Forms.TabPage();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.neuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -50,9 +50,10 @@
             this.tabControl1.Controls.Add(this.tabVerwalter);
             this.tabControl1.Controls.Add(this.tabLiegenschaft);
             this.tabControl1.Controls.Add(this.tabHaus);
-            this.tabControl1.Controls.Add(this.tabWohung);
+            this.tabControl1.Controls.Add(this.tabWohnung);
             this.tabControl1.Controls.Add(this.tabMieter);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl1.HotTrack = true;
             this.tabControl1.Location = new System.Drawing.Point(0, 24);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -64,7 +65,7 @@
             this.tabVerwalter.Location = new System.Drawing.Point(4, 22);
             this.tabVerwalter.Name = "tabVerwalter";
             this.tabVerwalter.Padding = new System.Windows.Forms.Padding(3);
-            this.tabVerwalter.Size = new System.Drawing.Size(792, 345);
+            this.tabVerwalter.Size = new System.Drawing.Size(792, 400);
             this.tabVerwalter.TabIndex = 0;
             this.tabVerwalter.Text = "Verwalter";
             this.tabVerwalter.UseVisualStyleBackColor = true;
@@ -85,27 +86,30 @@
             // 
             this.tabHaus.Location = new System.Drawing.Point(4, 22);
             this.tabHaus.Name = "tabHaus";
-            this.tabHaus.Size = new System.Drawing.Size(792, 345);
+            this.tabHaus.Padding = new System.Windows.Forms.Padding(3);
+            this.tabHaus.Size = new System.Drawing.Size(792, 400);
             this.tabHaus.TabIndex = 2;
             this.tabHaus.Text = "Haus";
             this.tabHaus.UseVisualStyleBackColor = true;
             this.tabHaus.Enter += new System.EventHandler(this.tabHaus_Enter);
             // 
-            // tabWohung
+            // tabWohnung
             // 
-            this.tabWohung.Location = new System.Drawing.Point(4, 22);
-            this.tabWohung.Name = "tabWohung";
-            this.tabWohung.Size = new System.Drawing.Size(792, 345);
-            this.tabWohung.TabIndex = 3;
-            this.tabWohung.Text = "Wohnung";
-            this.tabWohung.UseVisualStyleBackColor = true;
-            this.tabWohung.Enter += new System.EventHandler(this.tabWohung_Enter);
+            this.tabWohnung.Location = new System.Drawing.Point(4, 22);
+            this.tabWohnung.Name = "tabWohnung";
+            this.tabWohnung.Padding = new System.Windows.Forms.Padding(3);
+            this.tabWohnung.Size = new System.Drawing.Size(792, 400);
+            this.tabWohnung.TabIndex = 3;
+            this.tabWohnung.Text = "Wohnung";
+            this.tabWohnung.UseVisualStyleBackColor = true;
+            this.tabWohnung.Enter += new System.EventHandler(this.tabWohnung_Enter);
             // 
             // tabMieter
             // 
             this.tabMieter.Location = new System.Drawing.Point(4, 22);
             this.tabMieter.Name = "tabMieter";
-            this.tabMieter.Size = new System.Drawing.Size(792, 345);
+            this.tabMieter.Padding = new System.Windows.Forms.Padding(3);
+            this.tabMieter.Size = new System.Drawing.Size(792, 400);
             this.tabMieter.TabIndex = 4;
             this.tabMieter.Text = "Mieter";
             this.tabMieter.UseVisualStyleBackColor = true;
@@ -136,31 +140,31 @@
             // verwalterToolStripMenuItem
             // 
             this.verwalterToolStripMenuItem.Name = "verwalterToolStripMenuItem";
-            this.verwalterToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.verwalterToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.verwalterToolStripMenuItem.Text = "Verwalter";
             // 
             // liegenschaftToolStripMenuItem
             // 
             this.liegenschaftToolStripMenuItem.Name = "liegenschaftToolStripMenuItem";
-            this.liegenschaftToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.liegenschaftToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.liegenschaftToolStripMenuItem.Text = "Liegenschaft";
             // 
             // hausToolStripMenuItem
             // 
             this.hausToolStripMenuItem.Name = "hausToolStripMenuItem";
-            this.hausToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.hausToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.hausToolStripMenuItem.Text = "Haus";
             // 
             // wohungToolStripMenuItem
             // 
             this.wohungToolStripMenuItem.Name = "wohungToolStripMenuItem";
-            this.wohungToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.wohungToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.wohungToolStripMenuItem.Text = "Wohung";
             // 
             // mieterToolStripMenuItem
             // 
             this.mieterToolStripMenuItem.Name = "mieterToolStripMenuItem";
-            this.mieterToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.mieterToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.mieterToolStripMenuItem.Text = "Mieter";
             // 
             // Main
@@ -194,7 +198,7 @@
         private System.Windows.Forms.ToolStripMenuItem wohungToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mieterToolStripMenuItem;
         private System.Windows.Forms.TabPage tabHaus;
-        private System.Windows.Forms.TabPage tabWohung;
+        private System.Windows.Forms.TabPage tabWohnung;
         private System.Windows.Forms.TabPage tabMieter;
     }
 }

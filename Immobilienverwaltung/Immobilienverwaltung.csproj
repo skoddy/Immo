@@ -70,11 +70,13 @@
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
     <Compile Include="IPopulateData.cs" />
-    <Compile Include="Liegenschaften.cs" />
+    <Compile Include="Liegenschaft.cs" />
+    <Compile Include="Mieter.cs" />
     <Compile Include="MySQLDatabase.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Verwalter.cs" />
+    <Compile Include="Wohnung.cs" />
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>

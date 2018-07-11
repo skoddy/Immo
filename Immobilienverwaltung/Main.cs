@@ -50,11 +50,11 @@ namespace Immobilienverwaltung
             lvLiegenschaft.Columns.Add("Name", -2, HorizontalAlignment.Left);
             lvLiegenschaft.Columns.Add("Verwalter", -2, HorizontalAlignment.Left);
 
-            Liegenschaften ls = new Liegenschaften();
+            Liegenschaft ls = new Liegenschaft();
 
-            List<Liegenschaften> listLiegenschaften = ls.GetList(db);
+            List<Liegenschaft> listLiegenschaften = ls.GetList(db);
 
-            foreach (Liegenschaften liegenschaft in listLiegenschaften)
+            foreach (Liegenschaft liegenschaft in listLiegenschaften)
             {
                 ListViewItem item = new ListViewItem(liegenschaft.Id.ToString());
                 item.SubItems.Add(liegenschaft.Name);
@@ -96,14 +96,62 @@ namespace Immobilienverwaltung
             tabHaus.Controls.Add(lvHaus);
         }
 
-        private void tabWohung_Enter(object sender, EventArgs e)
+        private void tabWohnung_Enter(object sender, EventArgs e)
         {
+            ListView lvWohnung = createListView();
 
+            lvWohnung.Columns.Add("Id", -2, HorizontalAlignment.Left);
+            lvWohnung.Columns.Add("Balkon", -2, HorizontalAlignment.Left);
+            lvWohnung.Columns.Add("Terasse", -2, HorizontalAlignment.Left);
+            lvWohnung.Columns.Add("qm2", -2, HorizontalAlignment.Left);
+            lvWohnung.Columns.Add("€ / qm2 ", -2, HorizontalAlignment.Left);
+            lvWohnung.Columns.Add("Zimmer", -2, HorizontalAlignment.Left);
+            lvWohnung.Columns.Add("Haus", -2, HorizontalAlignment.Left);
+
+            Wohnung w = new Wohnung();
+
+            List<Wohnung> listWohnung = w.GetList(db);
+
+            foreach (Wohnung wohnung in listWohnung)
+            {
+                ListViewItem item = new ListViewItem(wohnung.Id.ToString());
+                item.SubItems.Add(wohnung.Balkon.ToString());
+                item.SubItems.Add(wohnung.Terasse.ToString());
+                item.SubItems.Add(wohnung.Qm.ToString());
+                item.SubItems.Add(wohnung.QmPreis.ToString());
+                item.SubItems.Add(wohnung.Zimmer.ToString());
+                item.SubItems.Add(wohnung.Haus_id.ToString());
+                lvWohnung.Items.Add(item);
+            }
+
+            tabWohnung.Controls.Add(lvWohnung);
         }
 
         private void tabMieter_Enter(object sender, EventArgs e)
         {
+            ListView lvMieter = createListView();
 
+            lvMieter.Columns.Add("Id", -2, HorizontalAlignment.Left);
+            lvMieter.Columns.Add("Vorname", -2, HorizontalAlignment.Left);
+            lvMieter.Columns.Add("Nachname", -2, HorizontalAlignment.Left);
+            lvMieter.Columns.Add("geb. am", -2, HorizontalAlignment.Left);
+            lvMieter.Columns.Add("Wohnung", -2, HorizontalAlignment.Left);
+
+            Mieter m = new Mieter();
+
+            List<Mieter> listMieter = m.GetList(db);
+
+            foreach (Mieter mieter in listMieter)
+            {
+                ListViewItem item = new ListViewItem(mieter.Id.ToString());
+                item.SubItems.Add(mieter.Vorname);
+                item.SubItems.Add(mieter.Nachname);
+                item.SubItems.Add(mieter.Gebdat.ToString("dd.MM.yyyy"));
+                item.SubItems.Add(mieter.Wohnungs_id.ToString());
+                lvMieter.Items.Add(item);
+            }
+
+            tabMieter.Controls.Add(lvMieter);
         }
 
         private ListView createListView()
@@ -115,10 +163,11 @@ namespace Immobilienverwaltung
             lv.LabelEdit = true;
             lv.AllowColumnReorder = true;
             lv.FullRowSelect = true;
-            lv.GridLines = false;
+            lv.GridLines = true;
             lv.Sorting = SortOrder.Ascending;
-
+           
             return lv;
         }
+
     }
 }

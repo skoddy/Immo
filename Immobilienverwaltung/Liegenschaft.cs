@@ -7,31 +7,31 @@ using System.Threading.Tasks;
 
 namespace Immobilienverwaltung
 {
-    public class Liegenschaften : IPopulateData
+    public class Liegenschaft : IPopulateData
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public int Verwalter_id { get; set; }
 
-        public Liegenschaften() { }
+        public Liegenschaft() { }
 
-        public Liegenschaften(int id, string name, int verwalter_id)
+        public Liegenschaft(int id, string name, int verwalter_id)
         {
             Id = id;
             Name = name;
             Verwalter_id = verwalter_id;
         }
 
-        public List<Liegenschaften> GetList(IDatabase db)
+        public List<Liegenschaft> GetList(IDatabase db)
         {
-            return db.Read<Liegenschaften>("liegenschaften");
+            return db.Read<Liegenschaft>("liegenschaft");
         }
 
         public void PopulateData(DbDataReader dataReader)
         {
             Id = dataReader.GetInt32(0);
             Name = dataReader.GetString(1);
-            Verwalter_id = dataReader.GetInt32(3);
+            Verwalter_id = dataReader.GetInt32(2);
         }
     }
 }
