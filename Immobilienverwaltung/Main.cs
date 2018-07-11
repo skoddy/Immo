@@ -13,7 +13,7 @@ namespace Immobilienverwaltung
     public partial class Main : Form
     {
         IDatabase db = new MySQLDatabase(new DBConfig());
-
+        public delegate void ThresholdReachedEventHandler(object sender, EventArgs e);
         public Main()
         {
             InitializeComponent();
@@ -38,9 +38,11 @@ namespace Immobilienverwaltung
                 item.SubItems.Add(verwalter.Nachname);
                 lvVerwalter.Items.Add(item);
             }
-
+            lvVerwalter.Activation = ItemActivation.TwoClick;
             tabVerwalter.Controls.Add(lvVerwalter);
         }
+
+
 
         private void tabLiegenschaft_Enter(object sender, EventArgs e)
         {
@@ -160,7 +162,7 @@ namespace Immobilienverwaltung
 
             lv.Dock = DockStyle.Fill;
             lv.View = View.Details;
-            lv.LabelEdit = true;
+            lv.LabelEdit = false;
             lv.AllowColumnReorder = true;
             lv.FullRowSelect = true;
             lv.GridLines = true;
