@@ -42,6 +42,7 @@ namespace Immobilienverwaltung
 
             dgvLiegenschaft.DataSource = bsLiegenschaft;
             dgvHaus.DataSource = bsHaus;
+
             GetData();
 
             dgvLiegenschaft.AutoResizeColumns();
