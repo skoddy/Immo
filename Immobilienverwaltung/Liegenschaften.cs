@@ -11,13 +11,15 @@ namespace Immobilienverwaltung
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public int Verwalter_id { get; set; }
 
         public Liegenschaften() { }
 
-        public Liegenschaften(int id, string name)
+        public Liegenschaften(int id, string name, int verwalter_id)
         {
             Id = id;
             Name = name;
+            Verwalter_id = verwalter_id;
         }
 
         public List<Liegenschaften> GetList(IDatabase db)
@@ -29,6 +31,7 @@ namespace Immobilienverwaltung
         {
             Id = dataReader.GetInt32(0);
             Name = dataReader.GetString(1);
+            Verwalter_id = dataReader.GetInt32(3);
         }
     }
 }

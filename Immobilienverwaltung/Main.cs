@@ -48,6 +48,7 @@ namespace Immobilienverwaltung
 
             lvLiegenschaft.Columns.Add("Id", -2, HorizontalAlignment.Left);
             lvLiegenschaft.Columns.Add("Name", -2, HorizontalAlignment.Left);
+            lvLiegenschaft.Columns.Add("Verwalter", -2, HorizontalAlignment.Left);
 
             Liegenschaften ls = new Liegenschaften();
 
@@ -57,6 +58,7 @@ namespace Immobilienverwaltung
             {
                 ListViewItem item = new ListViewItem(liegenschaft.Id.ToString());
                 item.SubItems.Add(liegenschaft.Name);
+                item.SubItems.Add(liegenschaft.Verwalter_id.ToString());
                 lvLiegenschaft.Items.Add(item);
             }
 
@@ -65,7 +67,33 @@ namespace Immobilienverwaltung
 
         private void tabHaus_Enter(object sender, EventArgs e)
         {
+            ListView lvHaus = createListView();
 
+            lvHaus.Columns.Add("Id", -2, HorizontalAlignment.Left);
+            lvHaus.Columns.Add("Strasse", -2, HorizontalAlignment.Left);
+            lvHaus.Columns.Add("Hausnummer", -2, HorizontalAlignment.Left);
+            lvHaus.Columns.Add("PLZ", -2, HorizontalAlignment.Left);
+            lvHaus.Columns.Add("Ort", -2, HorizontalAlignment.Left);
+            lvHaus.Columns.Add("Beschreibung", -2, HorizontalAlignment.Left);
+            lvHaus.Columns.Add("Liegenschaft", -2, HorizontalAlignment.Left);
+
+            Haus h = new Haus();
+
+            List<Haus> listHaus = h.GetList(db);
+
+            foreach (Haus haus in listHaus)
+            {
+                ListViewItem item = new ListViewItem(haus.Id.ToString());
+                item.SubItems.Add(haus.Strasse);
+                item.SubItems.Add(haus.Hausnummer);
+                item.SubItems.Add(haus.PLZ);
+                item.SubItems.Add(haus.Ort);
+                item.SubItems.Add(haus.Beschreibung);
+                item.SubItems.Add(haus.Liegenschaft_id.ToString());
+                lvHaus.Items.Add(item);
+            }
+
+            tabHaus.Controls.Add(lvHaus);
         }
 
         private void tabWohung_Enter(object sender, EventArgs e)
