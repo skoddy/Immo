@@ -37,11 +37,6 @@ namespace Immobilienverwaltung
             Liegenschaft_id = liegenschaft_id;
         }
 
-        public List<Haus> GetList(IDatabase db)
-        {
-            return db.Read<Haus>("haus");
-        }
-
         public void PopulateData(DbDataReader dataReader)
         {
             Id = dataReader.GetInt32(0);

@@ -7,169 +7,88 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
 
 namespace Immobilienverwaltung
 {
     public partial class Main : Form
     {
-        IDatabase db = new MySQLDatabase(new DBConfig());
-        public delegate void ThresholdReachedEventHandler(object sender, EventArgs e);
+        private DataGridView masterDataGridView = new DataGridView();
+        private BindingSource masterBindingSource = new BindingSource();
+        private DataGridView detailsDataGridView = new DataGridView();
+        private BindingSource detailsBindingSource = new BindingSource();
+
         public Main()
         {
+            masterDataGridView.Dock = DockStyle.Fill;
+            detailsDataGridView.Dock = DockStyle.Fill;
+
+            SplitContainer splitContainer1 = new SplitContainer();
+            splitContainer1.Dock = DockStyle.Fill;
+            splitContainer1.Orientation = Orientation.Vertical;
+            splitContainer1.Panel1.Controls.Add(masterDataGridView);
+            splitContainer1.Panel2.Controls.Add(detailsDataGridView);
+
+            this.Controls.Add(splitContainer1);
+            this.Load += new System.EventHandler(Form1_Load);
+            this.Text = "DataGridView master/detail demo";
             InitializeComponent();
         }
 
-        private void tabVerwalter_Enter(object sender, EventArgs e)
+        private void Form1_Load(object sender, EventArgs e)
         {
-            ListView lvVerwalter = createListView();
 
-            lvVerwalter.Columns.Add("Id", -2, HorizontalAlignment.Left);
-            lvVerwalter.Columns.Add("Vorname", -2, HorizontalAlignment.Left);
-            lvVerwalter.Columns.Add("Nachname", -2, HorizontalAlignment.Left);
+            masterDataGridView.DataSource = masterBindingSource;
+            detailsDataGridView.DataSource = detailsBindingSource;
+            GetData();
 
-            Verwalter vw = new Verwalter();
+            masterDataGridView.AutoResizeColumns();
+            masterDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            detailsDataGridView.AutoSizeColumnsMode =
+                DataGridViewAutoSizeColumnsMode.AllCells;
+            detailsDataGridView.Columns["Liegenschaft_id"].Visible = false;
+            detailsDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+        }
 
-            List<Verwalter> listVerwalter = vw.GetList(db);
-
-            foreach (Verwalter verwalter in listVerwalter)
+        private void GetData()
+        {
+            try
             {
-                ListViewItem item = new ListViewItem(verwalter.Id.ToString());
-                item.SubItems.Add(verwalter.Vorname);
-                item.SubItems.Add(verwalter.Nachname);
-                lvVerwalter.Items.Add(item);
+
+                DBConfig conf = new DBConfig();
+                MySqlConnection connection = new MySqlConnection(conf.ConnectionString);
+
+                DataSet data = new DataSet();
+                data.Locale = System.Globalization.CultureInfo.InvariantCulture;
+
+                MySqlDataAdapter masterDataAdapter = new
+                    MySqlDataAdapter("select ls.Id, ls.Name, vw.Nachname as Verwalter from liegenschaft as ls, verwalter as vw " +
+                    "where vw.Id = ls.Verwalter_id;", 
+                    connection);
+                masterDataAdapter.Fill(data, "liegenschaft");
+
+                MySqlDataAdapter detailsDataAdapter = new
+                    MySqlDataAdapter("select Id, Strasse, Hausnummer, PLZ, Ort, Beschreibung, Liegenschaft_id from haus", connection);
+                detailsDataAdapter.Fill(data, "haus");
+
+
+                DataRelation relation = new DataRelation("LiegenschaftenHaeuser",
+                    data.Tables["liegenschaft"].Columns["Id"],
+                    data.Tables["haus"].Columns["Liegenschaft_id"]);
+                data.Relations.Add(relation);
+
+                masterBindingSource.DataSource = data;
+                masterBindingSource.DataMember = "liegenschaft";
+
+                detailsBindingSource.DataSource = masterBindingSource;
+                detailsBindingSource.DataMember = "LiegenschaftenHaeuser";
             }
-            lvVerwalter.Activation = ItemActivation.TwoClick;
-            tabVerwalter.Controls.Add(lvVerwalter);
-        }
-
-
-
-        private void tabLiegenschaft_Enter(object sender, EventArgs e)
-        {
-            ListView lvLiegenschaft = createListView();
-
-            lvLiegenschaft.Columns.Add("Id", -2, HorizontalAlignment.Left);
-            lvLiegenschaft.Columns.Add("Name", -2, HorizontalAlignment.Left);
-            lvLiegenschaft.Columns.Add("Verwalter", -2, HorizontalAlignment.Left);
-
-            Liegenschaft ls = new Liegenschaft();
-
-            List<Liegenschaft> listLiegenschaften = ls.GetList(db);
-
-            foreach (Liegenschaft liegenschaft in listLiegenschaften)
+            catch (MySqlException)
             {
-                ListViewItem item = new ListViewItem(liegenschaft.Id.ToString());
-                item.SubItems.Add(liegenschaft.Name);
-                item.SubItems.Add(liegenschaft.Verwalter_id.ToString());
-                lvLiegenschaft.Items.Add(item);
+                MessageBox.Show("To run this example, replace the value of the " +
+                    "connectionString variable with a connection string that is " +
+                    "valid for your system.");
             }
-
-            tabLiegenschaft.Controls.Add(lvLiegenschaft);
         }
-
-        private void tabHaus_Enter(object sender, EventArgs e)
-        {
-            ListView lvHaus = createListView();
-
-            lvHaus.Columns.Add("Id", -2, HorizontalAlignment.Left);
-            lvHaus.Columns.Add("Strasse", -2, HorizontalAlignment.Left);
-            lvHaus.Columns.Add("Hausnummer", -2, HorizontalAlignment.Left);
-            lvHaus.Columns.Add("PLZ", -2, HorizontalAlignment.Left);
-            lvHaus.Columns.Add("Ort", -2, HorizontalAlignment.Left);
-            lvHaus.Columns.Add("Beschreibung", -2, HorizontalAlignment.Left);
-            lvHaus.Columns.Add("Liegenschaft", -2, HorizontalAlignment.Left);
-
-            Haus h = new Haus();
-
-            List<Haus> listHaus = h.GetList(db);
-
-            foreach (Haus haus in listHaus)
-            {
-                ListViewItem item = new ListViewItem(haus.Id.ToString());
-                item.SubItems.Add(haus.Strasse);
-                item.SubItems.Add(haus.Hausnummer);
-                item.SubItems.Add(haus.PLZ);
-                item.SubItems.Add(haus.Ort);
-                item.SubItems.Add(haus.Beschreibung);
-                item.SubItems.Add(haus.Liegenschaft_id.ToString());
-                lvHaus.Items.Add(item);
-            }
-
-            tabHaus.Controls.Add(lvHaus);
-        }
-
-        private void tabWohnung_Enter(object sender, EventArgs e)
-        {
-            ListView lvWohnung = createListView();
-
-            lvWohnung.Columns.Add("Id", -2, HorizontalAlignment.Left);
-            lvWohnung.Columns.Add("Balkon", -2, HorizontalAlignment.Left);
-            lvWohnung.Columns.Add("Terasse", -2, HorizontalAlignment.Left);
-            lvWohnung.Columns.Add("qm2", -2, HorizontalAlignment.Left);
-            lvWohnung.Columns.Add("€ / qm2 ", -2, HorizontalAlignment.Left);
-            lvWohnung.Columns.Add("Zimmer", -2, HorizontalAlignment.Left);
-            lvWohnung.Columns.Add("Haus", -2, HorizontalAlignment.Left);
-
-            Wohnung w = new Wohnung();
-
-            List<Wohnung> listWohnung = w.GetList(db);
-
-            foreach (Wohnung wohnung in listWohnung)
-            {
-                ListViewItem item = new ListViewItem(wohnung.Id.ToString());
-                item.SubItems.Add(wohnung.Balkon.ToString());
-                item.SubItems.Add(wohnung.Terasse.ToString());
-                item.SubItems.Add(wohnung.Qm.ToString());
-                item.SubItems.Add(wohnung.QmPreis.ToString());
-                item.SubItems.Add(wohnung.Zimmer.ToString());
-                item.SubItems.Add(wohnung.Haus_id.ToString());
-                lvWohnung.Items.Add(item);
-            }
-
-            tabWohnung.Controls.Add(lvWohnung);
-        }
-
-        private void tabMieter_Enter(object sender, EventArgs e)
-        {
-            ListView lvMieter = createListView();
-
-            lvMieter.Columns.Add("Id", -2, HorizontalAlignment.Left);
-            lvMieter.Columns.Add("Vorname", -2, HorizontalAlignment.Left);
-            lvMieter.Columns.Add("Nachname", -2, HorizontalAlignment.Left);
-            lvMieter.Columns.Add("geb. am", -2, HorizontalAlignment.Left);
-            lvMieter.Columns.Add("Wohnung", -2, HorizontalAlignment.Left);
-
-            Mieter m = new Mieter();
-
-            List<Mieter> listMieter = m.GetList(db);
-
-            foreach (Mieter mieter in listMieter)
-            {
-                ListViewItem item = new ListViewItem(mieter.Id.ToString());
-                item.SubItems.Add(mieter.Vorname);
-                item.SubItems.Add(mieter.Nachname);
-                item.SubItems.Add(mieter.Gebdat.ToString("dd.MM.yyyy"));
-                item.SubItems.Add(mieter.Wohnungs_id.ToString());
-                lvMieter.Items.Add(item);
-            }
-
-            tabMieter.Controls.Add(lvMieter);
-        }
-
-        private ListView createListView()
-        {
-            ListView lv = new ListView();
-
-            lv.Dock = DockStyle.Fill;
-            lv.View = View.Details;
-            lv.LabelEdit = false;
-            lv.AllowColumnReorder = true;
-            lv.FullRowSelect = true;
-            lv.GridLines = true;
-            lv.Sorting = SortOrder.Ascending;
-           
-            return lv;
-        }
-
     }
 }

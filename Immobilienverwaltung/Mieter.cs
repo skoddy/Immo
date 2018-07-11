@@ -31,11 +31,6 @@ namespace Immobilienverwaltung
             Wohnungs_id = wohnungs_id;
         }
 
-        public List<Mieter> GetList(IDatabase db)
-        {
-            return db.Read<Mieter>("mieter");
-        }
-
         public void PopulateData(DbDataReader dataReader)
         {
             Id = dataReader.GetInt32(0);

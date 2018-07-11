@@ -22,11 +22,6 @@ namespace Immobilienverwaltung
             Verwalter_id = verwalter_id;
         }
 
-        public List<Liegenschaft> GetList(IDatabase db)
-        {
-            return db.Read<Liegenschaft>("liegenschaft");
-        }
-
         public void PopulateData(DbDataReader dataReader)
         {
             Id = dataReader.GetInt32(0);

@@ -18,11 +18,6 @@ namespace Immobilienverwaltung
             Nachname = nachname;
         }
 
-        public List<Verwalter> GetList(IDatabase db)
-        {
-            return db.Read<Verwalter>("verwalter"); 
-        }
-
         public void PopulateData(DbDataReader dataReader)
         {
             Id = dataReader.GetInt32(0);
