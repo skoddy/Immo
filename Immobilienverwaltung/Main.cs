@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using MySql.Data.MySqlClient;
 
 namespace Immobilienverwaltung
 {
@@ -44,12 +38,12 @@ namespace Immobilienverwaltung
             dgvHaus.DataSource = bsHaus;
 
             GetData();
-
+            
             dgvLiegenschaft.AutoResizeColumns();
             dgvLiegenschaft.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvHaus.AutoSizeColumnsMode =
                 DataGridViewAutoSizeColumnsMode.AllCells;
-            dgvHaus.Columns["Liegenschaft_id"].Visible = false;
+            //dgvHaus.Columns["Liegenschaft_id"].Visible = false;
             dgvHaus.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         }
 
@@ -66,10 +60,17 @@ namespace Immobilienverwaltung
                     Locale = System.Globalization.CultureInfo.InvariantCulture
                 };
 
-                MySqlDataAdapter daLiegenschaft = new
-                    MySqlDataAdapter("select ls.Id, ls.Name, vw.Nachname as Verwalter from liegenschaft as ls, verwalter as vw " +
-                    "where vw.Id = ls.Verwalter_id;", 
-                    connection);
+                MySqlDataAdapter daLiegenschaft = new MySqlDataAdapter(
+"select  l.Id as Id, l.Name, v.Nachname as Verwalter, "+
+"count(DISTINCT h.Id) as Anzahl, "+
+"count(DISTINCT w.Id) as Anzahl, "+
+"count(DISTINCT m.Id) as Mieter "+
+"from liegenschaft l "+
+"left join verwalter v on l.Verwalter_id = v.Id "+
+"left join haus h on l.id = h.Liegenschaft_id "+
+"left join wohnung w on w.Haus_id = h.Id "+
+"left join mieter m on m.Wohnungs_id = m.Id "+
+"group by l.Id", connection);
                 daLiegenschaft.Fill(data, "liegenschaft");
 
                 MySqlDataAdapter daHaus = new

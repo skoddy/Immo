@@ -42,7 +42,9 @@ namespace Immobilienverwaltung
 
         public void Delete()
         {
-            throw new NotImplementedException();
+    
+            List<Liegenschaft> asd = Read<Liegenschaft>("asdas");
+
         }
 
         public List<T> Read<T>(string table) where T : IPopulateData, new()
